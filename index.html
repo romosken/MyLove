@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nosso Amor</title>
   <style>
     body {
@@ -10,58 +10,51 @@
       padding: 0;
       background: #fdc0c0;
       font-family: 'Arial', sans-serif;
-      overflow: hidden;
-      height: 100vh;
-      position: relative;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .photo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
     }
 
     .placeholder {
-      width: 100px;
-      height: 100px;
+      width: 150px;
+      height: 150px;
       border-radius: 10px;
-      position: absolute;
       object-fit: cover;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       transition: transform 0.3s;
     }
 
     .placeholder:hover {
-      transform: scale(1.05);
+      transform: scale(1.05) rotate(2deg);
     }
 
-    .center-texts {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    .text {
       text-align: center;
-      z-index: 2;
-      padding: 10px;
-    }
-
-    .text-main {
-      font-size: 1.6em;
       color: #c71585;
       font-weight: bold;
     }
 
-    .text-secondary {
-      font-size: 1.3em;
-      color: #db7093;
-      font-weight: bold;
+    .text-main {
+      font-size: 1.8em;
     }
 
-    @media (min-width: 600px) {
-      .placeholder {
-        width: 120px;
-        height: 120px;
-      }
-      .text-main {
-        font-size: 2em;
-      }
-      .text-secondary {
-        font-size: 1.5em;
-      }
+    .text-secondary {
+      font-size: 1.4em;
+      color: #db7093;
     }
 
     .heart {
@@ -71,6 +64,7 @@
       background: red;
       transform: rotate(45deg);
       animation: fall 8s linear infinite;
+      z-index: -1;
     }
 
     .heart::before,
@@ -103,23 +97,38 @@
         opacity: 0;
       }
     }
+
+    @media (max-width: 600px) {
+      .placeholder {
+        width: 120px;
+        height: 120px;
+      }
+
+      .text-main {
+        font-size: 1.4em;
+      }
+
+      .text-secondary {
+        font-size: 1.1em;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Texto central -->
-  <div class="center-texts">
-    <div class="text-main" id="counter"></div>
-    <div class="text-secondary" id="weddingCounter"></div>
-  </div>
+  <div class="container">
+    <div class="photo-grid">
+      <img src="1.jpeg" class="placeholder" alt="Foto 1">
+      <img src="2.jpeg" class="placeholder" alt="Foto 2">
+      <img src="3.jpeg" class="placeholder" alt="Foto 3">
+      <img src="4.jpeg" class="placeholder" alt="Foto 4">
+      <img src="5.jpeg" class="placeholder" alt="Foto 5">
+      <img src="6.jpeg" class="placeholder" alt="Foto 6">
+    </div>
 
-  <!-- Imagens dinâmicas -->
-  <img src="1.jpeg" class="placeholder" alt="Foto 1">
-  <img src="2.jpeg" class="placeholder" alt="Foto 2">
-  <img src="3.jpeg" class="placeholder" alt="Foto 3">
-  <img src="4.jpeg" class="placeholder" alt="Foto 4">
-  <img src="5.jpeg" class="placeholder" alt="Foto 5">
-  <img src="6.jpeg" class="placeholder" alt="Foto 6">
+    <div class="text text-main" id="counter"></div>
+    <div class="text text-secondary" id="weddingCounter"></div>
+  </div>
 
   <script>
     const startDate = new Date("2021-11-15T12:00:00");
@@ -150,21 +159,6 @@
     setInterval(updateCounters, 1000);
     updateCounters();
 
-    // Aleatoriza a posição e rotação das imagens ao redor do centro
-    const images = document.querySelectorAll('.placeholder');
-    images.forEach(img => {
-      const angle = Math.random() * 360;
-      const radius = window.innerWidth > 600 ? 150 : 90;
-      const offsetX = Math.cos(angle) * (Math.random() * radius + 50);
-      const offsetY = Math.sin(angle) * (Math.random() * radius + 50);
-      const rotation = Math.floor(Math.random() * 10 - 5);
-
-      img.style.left = `calc(50% + ${offsetX}px)`;
-      img.style.top = `calc(50% + ${offsetY}px)`;
-      img.style.transform = `rotate(${rotation}deg)`;
-    });
-
-    // Corações animados
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -176,6 +170,5 @@
 
     setInterval(createHeart, 300);
   </script>
-
 </body>
 </html>
