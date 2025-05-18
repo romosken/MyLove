@@ -10,7 +10,7 @@
       padding: 0;
       background: #fdc0c0;
       font-family: 'Arial', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden; /* permite rolagem vertical */
     }
 
     .placeholder {
@@ -23,42 +23,30 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    .top-left { top: 15%; left: 15%; transform: rotate(-8deg); }
-    .top-right { top: 20%; right: 15%; transform: rotate(8deg); }
-    .bottom-left { bottom: 20%; left: 15%; transform: rotate(5deg); }
-    .bottom-right { bottom: 20%; right: 15%; transform: rotate(-5deg); }
+    .top-left { top: 15%; left: 10%; transform: rotate(-8deg); }
+    .top-right { top: 20%; right: 10%; transform: rotate(8deg); }
+    .bottom-left { bottom: 20%; left: 10%; transform: rotate(5deg); }
+    .bottom-right { bottom: 20%; right: 10%; transform: rotate(-5deg); }
     .extra1 { top: 5%; left: 45%; transform: rotate(4deg); }
     .extra2 { top: 65%; left: 45%; transform: rotate(-6deg); }
-    .extra3 { top: 10%; left: 25%; transform: rotate(10deg); }
-    .extra4 { top: 60%; left: 35%; transform: rotate(-10deg); }
-
-    .decor {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      pointer-events: none;
-    }
 
     .center {
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
+      margin-top: 60vh;
       text-align: center;
       font-size: 2em;
       color: #c71585;
       font-weight: bold;
+      padding: 10px;
     }
 
     .center-secondary {
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
       text-align: center;
       font-size: 1.8em;
       color: #db7093;
       font-weight: bold;
+      padding: 10px;
     }
 
     .heart {
@@ -100,10 +88,36 @@
         opacity: 0;
       }
     }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .placeholder {
+        width: 100px;
+        height: 100px;
+      }
+
+      .top-left, .top-right, .bottom-left, .bottom-right,
+      .extra1, .extra2 {
+        position: static;
+        display: block;
+        margin: 10px auto;
+        transform: none;
+      }
+
+      .center {
+        font-size: 1.4em;
+        margin-top: 20px;
+      }
+
+      .center-secondary {
+        font-size: 1.2em;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Imagens nas posições definidas -->
+
+  <!-- Imagens -->
   <img src="1.jpeg" class="placeholder top-left" alt="Foto 1">
   <img src="2.jpeg" class="placeholder top-right" alt="Foto 2">
   <img src="3.jpeg" class="placeholder bottom-left" alt="Foto 3">
@@ -111,11 +125,7 @@
   <img src="5.jpeg" class="placeholder extra1" alt="Foto 5">
   <img src="6.jpeg" class="placeholder extra2" alt="Foto 6">
 
-
-
   <div class="center" id="counter"></div>
-</br></br>
-
   <div class="center-secondary" id="weddingCounter"></div>
 
   <script>
@@ -132,7 +142,7 @@
       const secondsLove = Math.floor((diffLove / 1000) % 60);
 
       document.getElementById("counter").innerText =
-        `${daysLove} dias, ${hoursLove} horas, ${minutesLove} minutos, ${secondsLove} segundos ao seu lado ❤\n\n\n\n`;
+        `${daysLove} dias, ${hoursLove} horas, ${minutesLove} minutos, ${secondsLove} segundos ao seu lado ❤`;
 
       const diffWedding = now - weddingDate;
       const daysW = Math.floor(diffWedding / (1000 * 60 * 60 * 24));
@@ -147,14 +157,12 @@
     setInterval(updateCounters, 1000);
     updateCounters();
 
-    // Criar corações aleatórios na tela
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
       document.body.appendChild(heart);
-
       setTimeout(() => heart.remove(), 10000);
     }
 
