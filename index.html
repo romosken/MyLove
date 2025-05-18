@@ -10,43 +10,51 @@
       padding: 0;
       background: #fdc0c0;
       font-family: 'Arial', sans-serif;
-      overflow-x: hidden; /* permite rolagem vertical */
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .photo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
     }
 
     .placeholder {
       width: 150px;
       height: 150px;
       border-radius: 10px;
-      margin: 10px;
-      position: absolute;
       object-fit: cover;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
     }
 
-    .top-left { top: 15%; left: 10%; transform: rotate(-8deg); }
-    .top-right { top: 20%; right: 10%; transform: rotate(8deg); }
-    .bottom-left { bottom: 20%; left: 10%; transform: rotate(5deg); }
-    .bottom-right { bottom: 20%; right: 10%; transform: rotate(-5deg); }
-    .extra1 { top: 5%; left: 45%; transform: rotate(4deg); }
-    .extra2 { top: 65%; left: 45%; transform: rotate(-6deg); }
+    .placeholder:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
 
-    .center {
-      position: relative;
-      margin-top: 60vh;
+    .text {
       text-align: center;
-      font-size: 2em;
       color: #c71585;
       font-weight: bold;
-      padding: 10px;
     }
 
-    .center-secondary {
-      position: relative;
-      text-align: center;
+    .text-main {
       font-size: 1.8em;
+    }
+
+    .text-secondary {
+      font-size: 1.4em;
       color: #db7093;
-      font-weight: bold;
-      padding: 10px;
     }
 
     .heart {
@@ -56,6 +64,7 @@
       background: red;
       transform: rotate(45deg);
       animation: fall 8s linear infinite;
+      z-index: -1;
     }
 
     .heart::before,
@@ -89,44 +98,37 @@
       }
     }
 
-    /* Responsividade */
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       .placeholder {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
       }
 
-      .top-left, .top-right, .bottom-left, .bottom-right,
-      .extra1, .extra2 {
-        position: static;
-        display: block;
-        margin: 10px auto;
-        transform: none;
-      }
-
-      .center {
+      .text-main {
         font-size: 1.4em;
-        margin-top: 20px;
       }
 
-      .center-secondary {
-        font-size: 1.2em;
+      .text-secondary {
+        font-size: 1.1em;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Imagens -->
-  <img src="1.jpeg" class="placeholder top-left" alt="Foto 1">
-  <img src="2.jpeg" class="placeholder top-right" alt="Foto 2">
-  <img src="3.jpeg" class="placeholder bottom-left" alt="Foto 3">
-  <img src="4.jpeg" class="placeholder bottom-right" alt="Foto 4">
-  <img src="5.jpeg" class="placeholder extra1" alt="Foto 5">
-  <img src="6.jpeg" class="placeholder extra2" alt="Foto 6">
+  <div class="container">
+    <div class="photo-grid">
+      <img src="1.jpeg" class="placeholder" alt="Foto 1">
+      <img src="2.jpeg" class="placeholder" alt="Foto 2">
+      <img src="3.jpeg" class="placeholder" alt="Foto 3">
+      <img src="4.jpeg" class="placeholder" alt="Foto 4">
+      <img src="5.jpeg" class="placeholder" alt="Foto 5">
+      <img src="6.jpeg" class="placeholder" alt="Foto 6">
+    </div>
 
-  <div class="center" id="counter"></div>
-  <div class="center-secondary" id="weddingCounter"></div>
+    <div class="text text-main" id="counter"></div>
+    <div class="text text-secondary" id="weddingCounter"></div>
+  </div>
 
   <script>
     const startDate = new Date("2021-11-15T12:00:00");
