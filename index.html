@@ -132,7 +132,7 @@
       const secondsLove = Math.floor((diffLove / 1000) % 60);
 
       document.getElementById("counter").innerText =
-        ${daysLove} dias, ${hoursLove} horas, ${minutesLove} minutos, ${secondsLove} segundos ao seu lado ❤\n\n\n\n;
+        `${daysLove} dias, ${hoursLove} horas, ${minutesLove} minutos, ${secondsLove} segundos ao seu lado ❤\n\n\n\n`;
 
       const diffWedding = now - weddingDate;
       const daysW = Math.floor(diffWedding / (1000 * 60 * 60 * 24));
@@ -141,7 +141,7 @@
       const secondsW = Math.floor((diffWedding / 1000) % 60);
 
       document.getElementById("weddingCounter").innerText =
-        Casados há ${daysW} dias, ${hoursW} horas, ${minutesW} minutos, ${secondsW} segundos 💍;
+        `Casados há ${daysW} dias, ${hoursW} horas, ${minutesW} minutos, ${secondsW} segundos 💍`;
     }
 
     setInterval(updateCounters, 1000);
