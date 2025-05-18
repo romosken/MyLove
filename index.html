@@ -15,15 +15,25 @@
       position: relative;
     }
 
+    .photo-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300px;
+      height: 300px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
     .photo-bg {
       position: absolute;
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       object-fit: cover;
-      opacity: 0.2;
-      z-index: 0;
+      opacity: 0.25;
       border-radius: 10px;
-      pointer-events: none;
+      transform: rotate(var(--angle));
     }
 
     .center-texts {
@@ -49,15 +59,17 @@
     }
 
     @media (min-width: 600px) {
-      .photo-bg {
-        width: 120px;
-        height: 120px;
+      .photo-wrapper {
+        width: 400px;
+        height: 400px;
       }
-
+      .photo-bg {
+        width: 100px;
+        height: 100px;
+      }
       .text-main {
         font-size: 2em;
       }
-
       .text-secondary {
         font-size: 1.5em;
       }
@@ -113,7 +125,8 @@
     <div class="text-secondary" id="weddingCounter"></div>
   </div>
 
-  <!-- Fotos de fundo (adicionadas via JS abaixo) -->
+  <!-- Fotos ao redor do texto central -->
+  <div class="photo-wrapper" id="photoWrapper"></div>
 
   <script>
     const startDate = new Date("2021-11-15T12:00:00");
@@ -135,50 +148,4 @@
       const daysW = Math.floor(diffWedding / (1000 * 60 * 60 * 24));
       const hoursW = Math.floor((diffWedding / (1000 * 60 * 60)) % 24);
       const minutesW = Math.floor((diffWedding / (1000 * 60)) % 60);
-      const secondsW = Math.floor((diffWedding / 1000) % 60);
-
-      document.getElementById("weddingCounter").innerText =
-        `Casados há ${daysW} dias, ${hoursW} horas, ${minutesW} minutos, ${secondsW} segundos 💍`;
-    }
-
-    setInterval(updateCounters, 1000);
-    updateCounters();
-
-    // Fotos de fundo em posições aleatórias
-    const imageSources = ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg", "6.jpeg"];
-    const quantity = 12;
-
-    for (let i = 0; i < quantity; i++) {
-      const img = document.createElement("img");
-      img.src = imageSources[i % imageSources.length];
-      img.classList.add("photo-bg");
-
-      const maxWidth = window.innerWidth;
-      const maxHeight = window.innerHeight;
-
-      const x = Math.random() * maxWidth;
-      const y = Math.random() * maxHeight;
-      const rotation = Math.random() * 20 - 10; // entre -10 e +10 graus
-
-      img.style.left = `${x}px`;
-      img.style.top = `${y}px`;
-      img.style.transform = `rotate(${rotation}deg)`;
-
-      document.body.appendChild(img);
-    }
-
-    // Corações animados
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
-    }
-
-    setInterval(createHeart, 300);
-  </script>
-
-</body>
-</html>
+      const secondsW
