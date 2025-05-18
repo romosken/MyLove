@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nosso Amor</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fdc0c0;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+
+    .placeholder {
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      margin: 10px;
+      position: absolute;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .top-left { top: 15%; left: 15%; transform: rotate(-8deg); }
+    .top-right { top: 20%; right: 15%; transform: rotate(8deg); }
+    .bottom-left { bottom: 20%; left: 15%; transform: rotate(5deg); }
+    .bottom-right { bottom: 20%; right: 15%; transform: rotate(-5deg); }
+    .extra1 { top: 5%; left: 45%; transform: rotate(4deg); }
+    .extra2 { top: 65%; left: 45%; transform: rotate(-6deg); }
+    .extra3 { top: 10%; left: 25%; transform: rotate(10deg); }
+    .extra4 { top: 60%; left: 35%; transform: rotate(-10deg); }
+
+    .decor {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      pointer-events: none;
+    }
+
+    .center {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 2em;
+      color: #c71585;
+      font-weight: bold;
+    }
+
+    .center-secondary {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 1.8em;
+      color: #db7093;
+      font-weight: bold;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: fall 8s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -10%;
+        opacity: 1;
+      }
+      100% {
+        top: 110%;
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Imagens nas posições definidas -->
+  <img src="1.jpeg" class="placeholder top-left" alt="Foto 1">
+  <img src="2.jpeg" class="placeholder top-right" alt="Foto 2">
+  <img src="3.jpeg" class="placeholder bottom-left" alt="Foto 3">
+  <img src="4.jpeg" class="placeholder bottom-right" alt="Foto 4">
+  <img src="5.jpeg" class="placeholder extra1" alt="Foto 5">
+  <img src="6.jpeg" class="placeholder extra2" alt="Foto 6">
+
+
+
+  <div class="center" id="counter"></div>
+</br></br>
+
+  <div class="center-secondary" id="weddingCounter"></div>
+
+  <script>
+    const startDate = new Date("2021-11-15T12:00:00");
+    const weddingDate = new Date("2024-05-18T10:30:00");
+
+    function updateCounters() {
+      const now = new Date();
+
+      const diffLove = now - startDate;
+      const daysLove = Math.floor(diffLove / (1000 * 60 * 60 * 24));
+      const hoursLove = Math.floor((diffLove / (1000 * 60 * 60)) % 24);
+      const minutesLove = Math.floor((diffLove / (1000 * 60)) % 60);
+      const secondsLove = Math.floor((diffLove / 1000) % 60);
+
+      document.getElementById("counter").innerText =
+        `${daysLove} dias, ${hoursLove} horas, ${minutesLove} minutos, ${secondsLove} segundos ao seu lado ❤\n\n\n\n`;
+
+      const diffWedding = now - weddingDate;
+      const daysW = Math.floor(diffWedding / (1000 * 60 * 60 * 24));
+      const hoursW = Math.floor((diffWedding / (1000 * 60 * 60)) % 24);
+      const minutesW = Math.floor((diffWedding / (1000 * 60)) % 60);
+      const secondsW = Math.floor((diffWedding / 1000) % 60);
+
+      document.getElementById("weddingCounter").innerText =
+        `Casados há ${daysW} dias, ${hoursW} horas, ${minutesW} minutos, ${secondsW} segundos 💍`;
+    }
+
+    setInterval(updateCounters, 1000);
+    updateCounters();
+
+    // Criar corações aleatórios na tela
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
