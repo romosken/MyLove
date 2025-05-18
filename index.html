@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nosso Amor</title>
+  <title>Te Amo!</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       background: #fdc0c0;
       font-family: 'Arial', sans-serif;
-      overflow: hidden;
+    }
+
+    .content-wrapper {
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 300px; /* espaço para o carrossel */
     }
 
     .placeholder {
@@ -24,10 +29,10 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    .top-left { top: 30%; left: 15%; transform: rotate(-8deg); }
-    .top-right { top: 20%; right: 15%; transform: rotate(8deg); }
-    .bottom-left { bottom: 20%; left: 15%; transform: rotate(5deg); }
-    .bottom-right { bottom: 30%; right: 15%; transform: rotate(-5deg); }
+    .top-left { top: 30%; left: 5%; transform: rotate(-8deg); }
+    .top-right { top: 20%; right: 5%; transform: rotate(8deg); }
+    .bottom-left { bottom: 20%; left: 5%; transform: rotate(5deg); }
+    .bottom-right { bottom: 30%; right: 5%; transform: rotate(-5deg); }
     .extra1 { top: 15%; left: 45%; transform: rotate(4deg); }
     .extra2 { top: 65%; left: 45%; transform: rotate(-6deg); }
 
@@ -50,7 +55,19 @@
       transform: translate(-50%, -50%);
       text-align: center;
       font-size: 1.3em;
-      color: #db7093;
+      color: #eb7093;
+      font-weight: bold;
+      padding: 0 10px;
+    }
+
+    .center-terciary {
+      position: absolute;
+      top: 90%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 1.3em;
+      color: #da6093;
       font-weight: bold;
       padding: 0 10px;
     }
@@ -62,6 +79,7 @@
       background: red;
       transform: rotate(45deg);
       animation: fall 8s linear infinite;
+      z-index: 1;
     }
 
     .heart::before,
@@ -74,28 +92,68 @@
       border-radius: 50%;
     }
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
 
     @keyframes fall {
-      0% {
-        top: -10%;
-        opacity: 1;
-      }
-      100% {
-        top: 110%;
-        opacity: 0;
-      }
+      0% { top: -10%; opacity: 1; }
+      100% { top: 110%; opacity: 0; }
     }
 
-    /* RESPONSIVIDADE PARA TELAS PEQUENAS */
+    .carousel-section {
+      width: 100%;
+      padding: 40px 0;
+      background-color:#fdc0c0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .carousel-container {
+      width: 90%;
+      max-width: 600px;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: relative;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border-radius: 20px;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #fff0f5;
+      border: none;
+      font-size: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transition: background-color 0.3s;
+      z-index: 2;
+    }
+
+    .carousel-btn:hover {
+      background-color: #ffe0eb;
+    }
+
+    .carousel-btn.left { left: 10px; }
+    .carousel-btn.right { right: 10px; }
+
     @media (max-width: 600px) {
       .placeholder {
         width: 28vw;
@@ -109,21 +167,73 @@
       .center-secondary {
         font-size: 1em;
       }
+
+      .carousel img {
+        height: 200px;
+      }
+
+      .carousel-btn.left { left: 0px; }
+      .carousel-btn.right { right: 0px; }
     }
   </style>
 </head>
 <body>
-  <!-- Imagens nas posições definidas -->
-  <img src="1.jpeg" class="placeholder top-left" alt="Foto 1">
-  <img src="2.jpeg" class="placeholder top-right" alt="Foto 2">
-  <img src="3.jpeg" class="placeholder bottom-left" alt="Foto 3">
-  <img src="4.jpeg" class="placeholder bottom-right" alt="Foto 4">
-  <img src="5.jpeg" class="placeholder extra1" alt="Foto 5">
-  <img src="6.jpeg" class="placeholder extra2" alt="Foto 6">
+  <div class="content-wrapper">
+    <img src="1.jpeg" class="placeholder top-left" alt="Foto 1">
+    <img src="2.jpeg" class="placeholder top-right" alt="Foto 2">
+    <img src="3.jpeg" class="placeholder bottom-left" alt="Foto 3">
+    <img src="4.jpeg" class="placeholder bottom-right" alt="Foto 4">
+    <img src="5.jpeg" class="placeholder extra1" alt="Foto 5">
+    <img src="6.jpeg" class="placeholder extra2" alt="Foto 6">
 
-  <!-- Contadores -->
-  <div class="center" id="counter"></div>
-  <div class="center-secondary" id="weddingCounter"></div>
+    <div class="center" id="counter"></div>
+    <div class="center-secondary" id="weddingCounter"></div>
+    <div class="center-terciary">
+      Te amo demais minha princesa!<br>
+      Espero que esses contadores continuem infinitamente e continuemos criando mais memórias para serem adicionadas aqui!
+    </div>
+  </div>
+
+  <!-- Carrossel -->
+  <div class="carousel-section">
+    <div class="carousel-container">
+      <button class="carousel-btn left" onclick="moveCarousel(-1)">❮</button>
+      <div class="carousel" id="carousel">
+ 	<img src="1.jpeg" alt="Carrossel 1">
+        <img src="2.jpeg" alt="Carrossel 2">
+        <img src="3.jpeg" alt="Carrossel 3">
+        <img src="4.jpeg" alt="Carrossel 4">
+        <img src="5.jpeg" alt="Carrossel 5">
+        <img src="6.jpeg" alt="Carrossel 6">
+        <img src="7.jpeg" alt="Carrossel 7">
+        <img src="8.jpeg" alt="Carrossel 8">
+        <img src="9.jpeg" alt="Carrossel 9">
+        <img src="10.jpeg" alt="Carrossel 10">
+        <img src="11.jpeg" alt="Carrossel 11">
+        <img src="12.jpeg" alt="Carrossel 12">
+        <img src="13.jpeg" alt="Carrossel 13">
+        <img src="14.jpeg" alt="Carrossel 14">
+        <img src="15.jpeg" alt="Carrossel 15">
+        <img src="16.jpeg" alt="Carrossel 16">
+        <img src="17.jpeg" alt="Carrossel 17">
+        <img src="18.jpeg" alt="Carrossel 18">
+        <img src="19.jpeg" alt="Carrossel 19">
+        <img src="20.jpeg" alt="Carrossel 20">
+        <img src="21.jpeg" alt="Carrossel 21">
+        <img src="22.jpeg" alt="Carrossel 22">
+        <img src="23.jpeg" alt="Carrossel 23">
+        <img src="24.jpeg" alt="Carrossel 24">
+        <img src="25.jpeg" alt="Carrossel 25">
+        <img src="26.jpeg" alt="Carrossel 26">
+        <img src="27.jpeg" alt="Carrossel 27">
+        <img src="28.jpeg" alt="Carrossel 28">
+        <img src="29.jpeg" alt="Carrossel 29">
+        <img src="30.jpeg" alt="Carrossel 30">
+        <img src="31.jpeg" alt="Carrossel 31">
+      </div>
+      <button class="carousel-btn right" onclick="moveCarousel(1)">❯</button>
+    </div>
+  </div>
 
   <script>
     const startDate = new Date("2021-11-15T12:00:00");
@@ -131,7 +241,6 @@
 
     function updateCounters() {
       const now = new Date();
-
       const diffLove = now - startDate;
       const daysLove = Math.floor(diffLove / (1000 * 60 * 60 * 24));
       const hoursLove = Math.floor((diffLove / (1000 * 60 * 60)) % 24);
@@ -154,17 +263,36 @@
     setInterval(updateCounters, 1000);
     updateCounters();
 
-    // Corações caindo
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
       document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
+      setTimeout(() => heart.remove(), 100000);
     }
 
     setInterval(createHeart, 300);
+
+    // Carrossel
+    let carouselIndex = 0;
+    const carousel = document.getElementById("carousel");
+    const imageWidth = 100; // %
+
+    function moveCarousel(direction) {
+      const totalImages = carousel.children.length;
+      carouselIndex += direction;
+
+      if (carouselIndex < 0) {
+        carouselIndex = totalImages - 1;
+      } else if (carouselIndex >= totalImages) {
+        carouselIndex = 0;
+      }
+
+      carousel.style.transform = `translateX(-${carouselIndex * 100}%)`;
+    }
+
+    setInterval(() => moveCarousel(1), 4000);
   </script>
 </body>
 </html>
